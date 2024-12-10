@@ -1,6 +1,7 @@
 import subprocess
 import os
 
+
 def visualize_with_plantuml(plantuml_path: str, uml_file: str, output_image: str):
     """
     Визуализирует граф с помощью PlantUML.

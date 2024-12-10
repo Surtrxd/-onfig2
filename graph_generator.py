@@ -9,13 +9,14 @@ def generate_plantuml_graph(dependencies: dict, output_file: str):
         f.write("@startuml\n")
         f.write("skinparam packageStyle rectangle\n")
 
-        # Объявляем узлы как прямоугольники
         for package in dependencies:
-            f.write(f'rectangle "{package}" as {package.replace(":", "_")}\n')
+            # Объявляем каждый узел как прямоугольник
+            f.write(f'rectangle "{package}" as {package.replace(":", "_").replace("-", "_")}\n')
 
-        # Генерируем связи между узлами
         for package, deps in dependencies.items():
             for dep in deps:
-                f.write(f'{package.replace(":", "_")} --> {dep.replace(":", "_")}\n')
+                # Добавляем стрелки только для различных пакетов
+                if package != dep:
+                    f.write(f'{package.replace(":", "_").replace("-", "_")} --> {dep.replace(":", "_").replace("-", "_")}\n')
 
         f.write("@enduml\n")
